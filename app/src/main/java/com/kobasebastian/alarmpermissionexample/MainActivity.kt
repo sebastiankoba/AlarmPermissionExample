@@ -20,24 +20,30 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val infoTextView = findViewById<TextView>(R.id.info_text)
-        val checkButton = findViewById<Button>(R.id.check_button)
+        val grantButton = findViewById<Button>(R.id.grant_button)
+
+        handleUI(isAlarmPermissionGranted(), grantButton, infoTextView)
 
         val alarmPermissionResultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()) { result ->
-            val grantedStr = if (isAlarmPermissionGranted()) "granted" else "not granted"
-            infoTextView.text = "SCHEDULE_EXACT_ALARM permission $grantedStr"
+            handleUI(isAlarmPermissionGranted(), grantButton, infoTextView)
         }
 
-        checkButton.setOnClickListener {
-            val granted = isAlarmPermissionGranted()
-            if(!granted) {
-                val intent = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
-                val uri = Uri.fromParts("package", packageName, null)
-                intent.setData(uri)
-                alarmPermissionResultLauncher.launch(intent)
-            } else {
-                infoTextView.text = "SCHEDULE_EXACT_ALARM permission granted"
-            }
+        grantButton.setOnClickListener {
+            val intent = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
+            val uri = Uri.fromParts("package", packageName, null)
+            intent.setData(uri)
+            alarmPermissionResultLauncher.launch(intent)
+        }
+    }
+
+    fun handleUI(permissionGranted: Boolean, grantButton: Button, infoTextView: TextView) {
+        if(permissionGranted) {
+            infoTextView.text = "SCHEDULE_EXACT_ALARM permission granted"
+            grantButton.isEnabled = false
+        } else {
+            infoTextView.text = "SCHEDULE_EXACT_ALARM permission not granted"
+            grantButton.isEnabled = true
         }
     }
 
