@@ -1,6 +1,9 @@
 # Alarm Permission Example
 This is a simple example app that demonstrates how to check for the `SCHEDULE_EXACT_ALARM` permission to set alarms at exact times. The `SCHEDULE_EXACT_ALARM` permission was introduced in Android 12. In Android 13 and above, this permission must be granted by the user by which it must be handled. The app checks if the user has granted the `SCHEDULE_EXACT_ALARM` permission. If the permission is not granted, the app displays a button that redirects the user to the settings screen where they can grant the permission.
 
+## Screenshots
+![Alt Text](https://github.com/sebastiankoba/AlarmPermissionExample/blob/main/Screen_recording_20240131_101032%20(1).gif)
+
 ## Implementation
 The app checks for the `SCHEDULE_EXACT_ALARM` permission using the following code:
 
