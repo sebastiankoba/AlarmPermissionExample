@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         handleUI(isAlarmPermissionGranted(), grantButton, infoTextView)
 
         val alarmPermissionResultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()) { result ->
+            ActivityResultContracts.StartActivityForResult()) {
             handleUI(isAlarmPermissionGranted(), grantButton, infoTextView)
         }
 
